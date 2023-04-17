@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'igdb' => [
+        'Client-ID' => env('IGDB_KEY'),
+        'Authorization' => 'Bearer ' . env('IGDB_AUTH'),
+    ],
+
 ];
