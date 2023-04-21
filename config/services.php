@@ -32,8 +32,11 @@ return [
     ],
 
     'igdb' => [
-        'Client-ID' => env('IGDB_KEY'),
-        'Authorization' => 'Bearer ' . env('IGDB_AUTH'),
+        'headers' => [
+            'Client-ID' => env('IGDB_KEY'),
+            'Authorization' => 'Bearer ' . env('IGDB_AUTH'),
+        ],
+        'endpoint' => 'https://api.igdb.com/v4/games',
     ],
 
 ];
