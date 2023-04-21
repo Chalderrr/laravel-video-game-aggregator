@@ -22,9 +22,12 @@
                         @endif
                     @endforeach
                 </div>
-                <p class="mt-6 text-gray-400 hidden lg:block">
-                    {{ $game['summary'] }}
-                </p>
+                @if(array_key_exists('summary', $game))
+                    <p class="mt-6 text-gray-400 hidden lg:block">
+                        {{ $game['summary'] }}
+                    </p>
+                @endif
+
             </div>
         </div> <!-- end game -->
     @empty
