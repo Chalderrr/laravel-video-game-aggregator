@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Video Game Aggregator</title>
+    <livewire:styles>
 
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
@@ -43,10 +44,12 @@
         @yield('content')
     </main>
 
-<footer class="border-t border-gray-800">
-    <div class="container mx-auto px-4 py-6">
-        Powered By <a href="#" class="underline hover:no-underline">IGDB API</a>
-    </div>
-</footer>
+    <footer class="border-t border-gray-800">
+        <div class="container mx-auto px-4 py-6">
+            Powered By <a href="#" class="underline hover:no-underline">IGDB API</a>
+        </div>
+    </footer>
+
+    <livewire:scripts>
 </body>
 </html>
