@@ -3,7 +3,9 @@
         <div class="game mt-8">
             <div class="relative inline-block">
                 <a href="#">
-                    <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="hover:opacity-75 transition ease-in-out duration-150">
+                    @if(array_key_exists('cover', $game))
+                        <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="hover:opacity-75 transition ease-in-out duration-150">
+                    @endif
                 </a>
                 @if(isset($game['rating']))
                     <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-800 rounded-full" style="right: -20px; bottom: -20px">
@@ -23,6 +25,14 @@
             </div>
         </div>
     @empty
-        <div>Loadng...</div>
-    @endforelse
+    @foreach(range(1,12) as $placeholderGame)
+        <div class="game mt-8">
+            <div class="relative inline-block">
+                <div class="bg-gray-800 w-52 h-64"></div>
+            </div>
+            <div class="inline-block text-transparent text-lg bg-gray-700 leading-tighter rounded hover:text-gray-400 mt-3">Title goes here</div>
+            <div class="inline-block mt-2 text-transparent bg-gray-700 rounded">PS4, PC, Switch</div>
+        </div>
+    @endforeach
+@endforelse
 </div> <!-- end popular-games -->

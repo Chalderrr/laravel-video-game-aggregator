@@ -30,6 +30,7 @@ class MostAnticipated extends Component
                 ->json();
         });
 
+
     }
 
     public function render()
