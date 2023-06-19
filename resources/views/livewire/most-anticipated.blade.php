@@ -2,7 +2,11 @@
     @forelse($mostAnticipated as $game)
         <div class="game flex">
             <a href="#" class="flex-none">
-                <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
+                @if(array_key_exists('cover', $game))
+                    <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="w-16 hover:opacity-75 transition ease-in-out duration-150">
+                @else
+                    <div class="bg-gray-800 h-20 w-16 flex-none"></div>
+                @endif
             </a>
             <div class="ml-4">
                 <a href="#" class="hover:text-gray-300">{{ $game['name'] }}</a>

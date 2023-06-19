@@ -3,7 +3,11 @@
         <div class="game bg-gray-800 rounded-lg shadow-md flex px-6 py-6">
             <div class="relative flex-none">
                 <a href="#">
-                    <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="w-48 hover:opacity-75 transition ease-in-out duration-150">
+                    @if(array_key_exists('cover', $game))
+                        <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="w-48 h-72 object-cover hover:opacity-75 transition ease-in-out duration-150">
+                    @else
+                        <div class="bg-gray-700 w-32 lg:w-48 h-40 lg:h-72"></div>
+                    @endif
                 </a>
                 @if(isset($game['rating']))
                     <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full" style="right: -20px; bottom: -20px">
