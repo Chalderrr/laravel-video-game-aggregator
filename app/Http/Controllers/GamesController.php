@@ -46,8 +46,6 @@ class GamesController extends Controller
             )->post(config('services.igdb.endpoint'))
             ->json();
 
-        dump($game);
-
         abort_if( ! $game, 404 );
 
         return view('show', [
