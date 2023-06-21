@@ -4,7 +4,11 @@
     <div class="container mx-auto px-4">
         <div class="game-details border-b border-gray-800 pb-12 flex flex-col lg:flex-row">
             <div class="flex-none">
-                <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="cover">
+                @if(array_key_exists('cover', $game))
+                    <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="cover">
+                @else
+                    <div class="bg-gray-800 w-52 h-72"></div>
+                @endif
             </div>
             <div class="lg:ml-12 xl:mr-64">
                 <h2 class="font-semibold text-4xl leading-tight mt-1">{{ $game['name'] }}</h2>
@@ -120,7 +124,7 @@
                 @foreach($game['similar_games'] as $game)
                     <div class="game mt-8">
                         <div class="relative inline-block">
-                            <a href="#">
+                            <a href="{{ route('games.show', $game['slug']) }}">
                                 <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="hover:opacity-75 transition ease-in-out duration-150">
                             </a>
                             @if(isset($game['rating']))
@@ -131,7 +135,7 @@
                                 </div>
                             @endif
                         </div>
-                        <a href="#" class="block text-base font-semibold leading-tight hover:text-gray-400 mt-8">{{ $game['name'] }}</a>
+                        <a href="{{ route('games.show', $game['slug']) }}" class="block text-base font-semibold leading-tight hover:text-gray-400 mt-8">{{ $game['name'] }}</a>
                         <div class="text-gray-400 mt-1">
                             @if(array_key_exists('platforms', $game))
                                 @foreach ($game['platforms'] as $platform)
