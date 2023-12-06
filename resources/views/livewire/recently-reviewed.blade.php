@@ -4,7 +4,7 @@
             <div class="relative flex-none">
                 <a href="#">
                     @if($game && array_key_exists('cover', $game))
-                        <img src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="game cover" class="w-48 h-72 object-cover hover:opacity-75 transition ease-in-out duration-150">
+                        <img src="{{ $game['coverImageUrl'] }}" alt="game cover" class="w-48 h-72 object-cover hover:opacity-75 transition ease-in-out duration-150">
                     @else
                         <div class="bg-gray-700 w-32 lg:w-48 h-40 lg:h-72"></div>
                     @endif
@@ -12,20 +12,18 @@
                 @if(isset($game['rating']))
                     <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full" style="right: -20px; bottom: -20px">
                         <div class="font-semibold text-xs flex justify-center items-center h-full">
-                            {{ round($game['rating']).'%' }}
+                            {{ $game['rating'] }}
                         </div>
                     </div>
                 @endif
             </div>
             <div class="ml-6 lg:ml-12">
                 <a href="#" class="block text-lg font-semibold leading-tight hover:text-gray-400 mt-4">{{ $game['name'] }}</a>
-                <div class="text-gray-400 mt-1">
-                    @foreach ($game['platforms'] as $platform)
-                        @if(array_key_exists('abbreviation', $platform))
-                            {{ $platform['abbreviation'] }}
-                        @endif
-                    @endforeach
-                </div>
+                @isset($game['platforms'])
+                    <div class="text-gray-400 mt-1">
+                        {{ $game['platforms'] }}
+                    </div>
+                @endisset
                 @if(array_key_exists('summary', $game))
                     <p class="mt-6 text-gray-400 hidden lg:block">
                         {{ $game['summary'] }}
