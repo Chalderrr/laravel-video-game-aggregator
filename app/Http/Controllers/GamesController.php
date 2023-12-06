@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class GamesController extends Controller
 {
@@ -49,8 +50,29 @@ class GamesController extends Controller
         abort_if( ! $game, 404 );
 
         return view('show', [
-            'game' => $game[0],
+            'game' => $this->formatGameForView($game[0]),
         ]);
+    }
+
+    private function formatGameForView($game)
+    {
+     $temp = collect($game)->merge([
+         'coverImageUrl' =>  isset( $game['cover'] ) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : '',
+         'genres' => collect($game['genres'])->pluck('name')->implode(', '),
+         'involvedCompanies' => isset($game['involved_companies']) ? $game['involved_companies'][0]['company']['name'] : '',
+         'platforms' => collect($game['platforms'])->pluck('abbreviation')->implode(', '),
+         'memberRating' => isset($game['rating']) ? round($game['rating']).'%' : '0%',
+         'criticRating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']).'%' : '0%',
+         'trailer' => isset($game['videos']) ? 'https://youtube.com/watch/' . $game['videos'][0]['video_id'] : '',
+         'screenshots' => collect($game['screenshots'])->map(function ($screenshot) {
+             return [
+                 'big' =>  Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']),
+                 'huge' =>  Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url'])
+            ];
+         })->take(9)
+     ]);
+
+     return $temp;
     }
 
     /**
